@@ -1,0 +1,5 @@
+k2_cleaned["pl_rade"].hist(bins=20)
+# plt.xlabel("Planet Radius (Earth Radii)")
+# plt.ylabel("Count")
+# plt.title("Distrubution Of Planet Radii In K2 Data")
+# plt.show()
