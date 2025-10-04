@@ -77,7 +77,7 @@ logs/
 *.out
 *.err
 *.txt
-!structure.txt  
+structure.txt  
 
 .mypy_cache/
 .pytest_cache/
