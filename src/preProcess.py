@@ -1,6 +1,9 @@
 import  pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+from sklearn.preprocessing import StandardScaler 
+import os 
+
 
 k2_df=pd.read_csv("data/k2.csv", comment="#")
 
@@ -37,10 +40,10 @@ mvpCols = [
 ]
 
 k2_trim = k2_df[mvpCols].copy()
-print(k2_trim.head())
+#print(k2_trim.head())
 #print(k2_trim.isnull().sum())
 
-print(k2_trim.isnull().sum())
+#print(k2_trim.isnull().sum())
 
 #Data visulaisation
 
@@ -61,9 +64,26 @@ print(k2_trim.isnull().sum())
 
 k2_cleaned = k2_trim.dropna(subset=["pl_rade", "pl_eqt", "st_teff"]) # missing crutuical info and therefore dropped
 k2_cleaned['pl_bmasse'] = k2_cleaned['pl_bmasse'].fillna(k2_cleaned['pl_bmasse'].median())
-print("Cleaned shape:", k2_cleaned.shape)
+# print("Cleaned shape:", k2_cleaned.shape)
 
 # converison of disposition data into numerical format for machine learning
 
-statusMap = {"Confirmed" : 2, "Candidate" : 1, "False Positive" : 0}
+statusMap = {"CONFIRMED" : 2, "CANDIDATE" : 1, "FALSE POSITIVE" : 0}
 k2_cleaned['dispositionNum']= k2_cleaned["disposition"].map(statusMap)
+
+
+# Feature Scaling using sklearn built in function ==> z = (x[feature] - μ[mean of features column]) / σ[std] 
+
+numericalColumns=['pl_orbper', 'pl_rade', 'pl_eqt', 'st_teff', 'pl_bmasse']
+
+scale = StandardScaler()
+k2_cleaned[numericalColumns] = scale.fit_transform(k2_cleaned[numericalColumns])
+
+print("Features Have Been Scaled")
+
+# Save Processed Data
+
+os.makedirs('../data/processed', exist_ok=True)
+k2_cleaned.to_csv("data/processed/k2_clean.csv", index=False)
+
+print("Save Completed")

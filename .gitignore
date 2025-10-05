@@ -71,6 +71,7 @@ checkpoints/
 *.joblib
 *.onnx
 *.json
+project_structure.txt
 
 logs/
 *.log
