@@ -16,4 +16,4 @@ demo/
 ## Installation
 1. Clone the repo:
 ```bash
-git clone https://github.com/yourusername/your-repo.git
+git clone https://github.com/SnowWoofer/ExoPredict-K2-Planet-Classification.git
